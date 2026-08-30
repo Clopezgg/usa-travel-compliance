@@ -6,6 +6,7 @@ const verifyCss=fs.readFileSync(new URL('../web/verification-gate.css',import.me
 const bootstrap=fs.readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
 const runtime=fs.readFileSync(new URL('../web/runtime.js',import.meta.url),'utf8');
 const verifyJs=fs.readFileSync(new URL('../web/verification-gate.js',import.meta.url),'utf8');
+const verifier=fs.readFileSync(new URL('../supabase/functions/verify-travel-product/index.ts',import.meta.url),'utf8');
 const js=`${bootstrap}\n${runtime}`;
 const requiredIds=['authView','appView','dashboardView','tripsView','currentTripView','catalogView','adminView','tripWizard','itemDialog','documentDialog','bottomNav'];
 for(const id of requiredIds)if(!html.includes(`id="${id}"`))throw new Error(`Missing ${id}`);
@@ -19,4 +20,5 @@ for(const token of ['APP_SOURCES','loadSdk','loadAppSource','__ENTRYSAFE_BOOT_OK
 for(const token of ['verification-gate.js','verification-gate.css'])if(!html.includes(token))throw new Error(`Missing verification asset ${token}`);
 for(const token of ['verify-travel-product','Verificar oficialmente antes de guardar','requiresAcknowledgement','verificationApproved','canSave'])if(!verifyJs.includes(token))throw new Error(`Missing verification gate token ${token}`);
 for(const token of ['.verification-result','.verification-requirements','.verification-sources','.verification-blocked-note'])if(!verifyCss.includes(token))throw new Error(`Missing verification design token ${token}`);
-console.log('EntrySafe responsive auth/runtime + official verification smoke checks passed');
+for(const token of ['classifyCatalog','inferAttributes','semantic_heuristic','restrictionMachineVerified','classification_method','classified_catalog_item_id'])if(!verifier.includes(token))throw new Error(`Missing smart classification token ${token}`);
+console.log('EntrySafe responsive auth/runtime + official smart verification smoke checks passed');
