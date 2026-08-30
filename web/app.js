@@ -11,21 +11,43 @@ function showBootstrapError(error){
   console.error('[EntrySafe bootstrap]',error);
 }
 
+function normalizeRuntimeSource(source){
+  return source
+    .replace(/^import\s+\{\s*createClient\s*\}\s+from\s+['"][^'"]+['"];?\s*/m,'')
+    .replace(/^import\s+\{\s*SUPABASE_URL\s*,\s*SUPABASE_PUBLISHABLE_KEY\s*\}\s+from\s+['"]\.\/config\.js['"];?\s*/m,'')
+    // Repair two legacy malformed ternary branches shipped in runtime.js.
+    .replace(").join(''):'<div class=\"empty-state\"><i class=\"ico ico-bag\"",").join(''):`<div class=\"empty-state\"><i class=\"ico ico-bag\"")
+    .replace(").join(''):'<div class=\"empty-state\"><i class=\"ico ico-doc\"",").join(''):`<div class=\"empty-state\"><i class=\"ico ico-doc\"");
+}
+
 async function boot(){
   try{
     const response=await fetch('./runtime.js',{cache:'no-store'});
     if(!response.ok)throw new Error(`motor local HTTP ${response.status}`);
     let source=await response.text();
     if(!source.includes('handleAuthSubmit')||!source.includes('bindStaticEvents'))throw new Error('motor local incompleto');
-    source=source
-      .replace(/^import\s+\{\s*createClient\s*\}\s+from\s+['"][^'"]+['"];?\s*/m,'')
-      .replace(/^import\s+\{\s*SUPABASE_URL\s*,\s*SUPABASE_PUBLISHABLE_KEY\s*\}\s+from\s+['"]\.\/config\.js['"];?\s*/m,'');
+    source=normalizeRuntimeSource(source);
+
     globalThis.__ENTRYSAFE_LOCAL_CREATE_CLIENT__=createClient;
     globalThis.__ENTRYSAFE_LOCAL_CONFIG__={SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY};
     const prefix=`const createClient=globalThis.__ENTRYSAFE_LOCAL_CREATE_CLIENT__;\nconst {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY}=globalThis.__ENTRYSAFE_LOCAL_CONFIG__;\n`;
+
+    // Parse exactly what Safari will execute before attempting the dynamic import.
+    try{
+      new Function(`return async function(){\n${prefix}${source}\n}`);
+    }catch(error){
+      throw new Error(`motor inválido: ${error?.message||error}`);
+    }
+
     const blob=new Blob([prefix,source,'\n//# sourceURL=entrysafe-runtime-local.js'],{type:'text/javascript'});
     const blobUrl=URL.createObjectURL(blob);
-    try{await import(blobUrl);}finally{URL.revokeObjectURL(blobUrl);delete globalThis.__ENTRYSAFE_LOCAL_CREATE_CLIENT__;delete globalThis.__ENTRYSAFE_LOCAL_CONFIG__;}
+    try{
+      await import(blobUrl);
+    }finally{
+      URL.revokeObjectURL(blobUrl);
+      delete globalThis.__ENTRYSAFE_LOCAL_CREATE_CLIENT__;
+      delete globalThis.__ENTRYSAFE_LOCAL_CONFIG__;
+    }
     window.__ENTRYSAFE_BOOT_OK__=true;
   }catch(error){
     window.__ENTRYSAFE_BOOT_OK__=false;
