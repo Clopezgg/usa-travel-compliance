@@ -1,10 +1,14 @@
 import fs from 'node:fs';
 const html=fs.readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
 const css=fs.readFileSync(new URL('../web/styles.css',import.meta.url),'utf8');
+const responsive=fs.readFileSync(new URL('../web/responsive-desktop.css',import.meta.url),'utf8');
 const js=fs.readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
 const requiredIds=['authView','appView','dashboardView','tripsView','currentTripView','catalogView','adminView','tripWizard','itemDialog','documentDialog','bottomNav'];
 for(const id of requiredIds)if(!html.includes(`id="${id}"`))throw new Error(`Missing ${id}`);
 for(const token of ['EntrySafe','Centro de control','Viaje actual','Catálogo regulatorio'])if(!html.includes(token)&&!js.includes(token))throw new Error(`Missing UI token ${token}`);
 for(const token of ['--gold:','#061526','.travel-hero','.admin-hero','.bottom-nav'])if(!css.includes(token))throw new Error(`Missing design token ${token}`);
+for(const token of ['responsive-desktop.css'])if(!html.includes(token))throw new Error(`Missing responsive stylesheet ${token}`);
+for(const token of ['@media (min-width:1024px)','--desktop-sidebar','#currentTripView','.catalog-list','.sheet-dialog'])if(!responsive.includes(token))throw new Error(`Missing desktop responsive token ${token}`);
+for(const token of ['@media (min-width:768px)','@media (min-width:1440px)'])if(!responsive.includes(token))throw new Error(`Missing responsive breakpoint ${token}`);
 for(const token of ['emailRedirectTo','admin_users','regulatory_rules','trip_documents','compliance_snapshots'])if(!js.includes(token))throw new Error(`Missing functional token ${token}`);
-console.log('EntrySafe luxury premium smoke checks passed');
+console.log('EntrySafe premium mobile/tablet/desktop smoke checks passed');
