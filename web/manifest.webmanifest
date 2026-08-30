@@ -1,0 +1,11 @@
+{
+  "name": "EntrySafe USA",
+  "short_name": "EntrySafe",
+  "description": "Bitácora personal de viajes y cumplimiento Honduras a Estados Unidos",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#0f2747",
+  "lang": "es",
+  "icons": [{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
