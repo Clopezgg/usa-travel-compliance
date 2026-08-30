@@ -1,8 +1,10 @@
-import { readFileSync, existsSync } from 'node:fs';
-const required=['web/index.html','web/app.js','web/styles.css','web/manifest.webmanifest','web/sw.js','render.yaml','supabase/schema.sql','supabase/seed.sql'];
-for(const f of required){if(!existsSync(f))throw new Error(`Missing ${f}`)}
-const html=readFileSync('web/index.html','utf8');
-const js=readFileSync('web/app.js','utf8');
-for(const token of ['authForm','tripForm','itemForm','documentForm','declarationDialog'])if(!html.includes(token))throw new Error(`HTML workflow missing ${token}`);
-for(const token of ["from('trips')","from('trip_items')","from('catalog_items')","from('regulatory_rules')","storage.from('travel-documents')"])if(!js.includes(token))throw new Error(`Data workflow missing ${token}`);
-console.log('Smoke checks passed');
+import fs from 'node:fs';
+const html=fs.readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
+const css=fs.readFileSync(new URL('../web/styles.css',import.meta.url),'utf8');
+const js=fs.readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
+const requiredIds=['authView','appView','dashboardView','tripsView','currentTripView','catalogView','adminView','tripWizard','itemDialog','documentDialog','bottomNav'];
+for(const id of requiredIds)if(!html.includes(`id="${id}"`))throw new Error(`Missing ${id}`);
+for(const token of ['EntrySafe','Centro de control','Viaje actual','Catálogo regulatorio'])if(!html.includes(token)&&!js.includes(token))throw new Error(`Missing UI token ${token}`);
+for(const token of ['--gold:','#061526','.travel-hero','.admin-hero','.bottom-nav'])if(!css.includes(token))throw new Error(`Missing design token ${token}`);
+for(const token of ['emailRedirectTo','admin_users','regulatory_rules','trip_documents','compliance_snapshots'])if(!js.includes(token))throw new Error(`Missing functional token ${token}`);
+console.log('EntrySafe luxury premium smoke checks passed');
