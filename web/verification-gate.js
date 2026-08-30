@@ -1,4 +1,4 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm';
+import { createClient } from './supabase-local.js';
 import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './config.js';
 
 const client = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
@@ -160,4 +160,4 @@ if(form){
   ensurePanel();
 }
 
-window.__ENTRYSAFE_VERIFICATION_GATE__={active:true,version:'1.0.0'};
+window.__ENTRYSAFE_VERIFICATION_GATE__={active:true,version:'1.1.0-local'};

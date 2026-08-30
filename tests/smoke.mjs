@@ -6,6 +6,7 @@ const verifyCss=fs.readFileSync(new URL('../web/verification-gate.css',import.me
 const bootstrap=fs.readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
 const runtime=fs.readFileSync(new URL('../web/runtime.js',import.meta.url),'utf8');
 const verifyJs=fs.readFileSync(new URL('../web/verification-gate.js',import.meta.url),'utf8');
+const localClient=fs.readFileSync(new URL('../web/supabase-local.js',import.meta.url),'utf8');
 const verifier=fs.readFileSync(new URL('../supabase/functions/verify-travel-product/index.ts',import.meta.url),'utf8');
 const js=`${bootstrap}\n${runtime}`;
 const requiredIds=['authView','appView','dashboardView','tripsView','currentTripView','catalogView','adminView','tripWizard','itemDialog','documentDialog','bottomNav'];
@@ -16,9 +17,12 @@ for(const token of ['responsive-desktop.css'])if(!html.includes(token))throw new
 for(const token of ['@media (min-width:1024px)','--desktop-sidebar','#currentTripView','.catalog-list','.sheet-dialog'])if(!responsive.includes(token))throw new Error(`Missing desktop responsive token ${token}`);
 for(const token of ['@media (min-width:768px)','@media (min-width:1440px)'])if(!responsive.includes(token))throw new Error(`Missing responsive breakpoint ${token}`);
 for(const token of ['emailRedirectTo','admin_users','regulatory_rules','trip_documents','compliance_snapshots'])if(!runtime.includes(token))throw new Error(`Missing functional runtime token ${token}`);
-for(const token of ['APP_SOURCES','loadSdk','loadAppSource','__ENTRYSAFE_BOOT_OK__'])if(!bootstrap.includes(token))throw new Error(`Missing bootstrap resiliency token ${token}`);
+for(const token of ['./supabase-local.js','./runtime.js','__ENTRYSAFE_BOOT_OK__','Blob','sourceURL=entrysafe-runtime-local.js'])if(!bootstrap.includes(token))throw new Error(`Missing same-origin bootstrap token ${token}`);
+for(const token of ['SESSION_KEY','signInWithPassword','resetPasswordForEmail','PostgrestBuilder','storage','functions'])if(!localClient.includes(token))throw new Error(`Missing local Supabase client token ${token}`);
+if(bootstrap.includes('raw.githubusercontent.com')||bootstrap.includes('cdn.jsdelivr.net')||bootstrap.includes('esm.sh'))throw new Error('Bootstrap still depends on external runtime/CDN');
+if(!verifyJs.includes("from './supabase-local.js'"))throw new Error('Verification gate is not using local Supabase client');
 for(const token of ['verification-gate.js','verification-gate.css'])if(!html.includes(token))throw new Error(`Missing verification asset ${token}`);
 for(const token of ['verify-travel-product','Verificar oficialmente antes de guardar','requiresAcknowledgement','verificationApproved','canSave'])if(!verifyJs.includes(token))throw new Error(`Missing verification gate token ${token}`);
 for(const token of ['.verification-result','.verification-requirements','.verification-sources','.verification-blocked-note'])if(!verifyCss.includes(token))throw new Error(`Missing verification design token ${token}`);
 for(const token of ['classifyCatalog','inferAttributes','semantic_heuristic','restrictionMachineVerified','classification_method','classified_catalog_item_id'])if(!verifier.includes(token))throw new Error(`Missing smart classification token ${token}`);
-console.log('EntrySafe responsive auth/runtime + official smart verification smoke checks passed');
+console.log('EntrySafe same-origin auth + responsive smart verification smoke checks passed');
