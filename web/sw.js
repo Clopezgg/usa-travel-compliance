@@ -1,5 +1,5 @@
-const CACHE='entrysafe-v4-definitive-20260830';
-const ASSETS=['./','./index.html','./entrysafe-v4.css','./entrysafe-v4.js','./entrysafe-core-v4.js','./catalog-v4.js','./catalog-v3.js','./trip-management-v3.js','./supabase-local.js','./config.js','./manifest.webmanifest','./icon.svg'];
+const CACHE='entrysafe-v4-definitive-20260830-b';
+const ASSETS=['./','./index.html','./entrysafe-v4.css','./entrysafe-v4.js','./entrysafe-core-v4.js','./catalog-v4.js','./catalog-v3.js','./trip-management-v3.js','./trip-management-v4.js','./supabase-local.js','./config.js','./manifest.webmanifest','./icon.svg'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));});
 self.addEventListener('activate',event=>event.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const url=new URL(event.request.url);if(url.origin!==self.location.origin)return;const core=ASSETS.some(a=>url.pathname.endsWith(a.replace('./','/')))||url.pathname==='/'||url.pathname.endsWith('/index.html');event.respondWith(fetch(event.request,{cache:'no-store'}).then(r=>{if(core&&r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(event.request,copy));}return r}).catch(()=>caches.match(event.request).then(r=>r||caches.match('./index.html'))));});
