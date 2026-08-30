@@ -1,11 +1,11 @@
 {
   "name":"EntrySafe USA",
   "short_name":"EntrySafe",
-  "description":"Centro privado de cumplimiento para viajes de Honduras a Estados Unidos.",
+  "description":"Checklist inteligente de viaje y cumplimiento oficial para Honduras a Estados Unidos.",
   "start_url":"./",
   "display":"standalone",
-  "background_color":"#061526",
-  "theme_color":"#061526",
+  "background_color":"#f3f5f7",
+  "theme_color":"#f3f5f7",
   "lang":"es",
   "icons":[{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }
