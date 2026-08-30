@@ -1,42 +1,28 @@
 import fs from 'node:fs';
 const html=fs.readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
-const css=fs.readFileSync(new URL('../web/styles.css',import.meta.url),'utf8');
-const responsive=fs.readFileSync(new URL('../web/responsive-desktop.css',import.meta.url),'utf8');
-const verifyCss=fs.readFileSync(new URL('../web/verification-gate.css',import.meta.url),'utf8');
-const bootstrap=fs.readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
-const runtime=fs.readFileSync(new URL('../web/runtime.js',import.meta.url),'utf8');
-const verifyJs=fs.readFileSync(new URL('../web/verification-gate.js',import.meta.url),'utf8');
-const localClient=fs.readFileSync(new URL('../web/supabase-local.js',import.meta.url),'utf8');
+const css=fs.readFileSync(new URL('../web/entrysafe-v2.css',import.meta.url),'utf8');
+const app=fs.readFileSync(new URL('../web/entrysafe-v2.js',import.meta.url),'utf8');
+const client=fs.readFileSync(new URL('../web/supabase-local.js',import.meta.url),'utf8');
 const verifier=fs.readFileSync(new URL('../supabase/functions/verify-travel-product/index.ts',import.meta.url),'utf8');
-const js=`${bootstrap}\n${runtime}`;
-const requiredIds=['authView','appView','dashboardView','tripsView','currentTripView','catalogView','adminView','tripWizard','itemDialog','documentDialog','bottomNav'];
-for(const id of requiredIds)if(!html.includes(`id="${id}"`))throw new Error(`Missing ${id}`);
-for(const token of ['EntrySafe','Centro de control','Viaje actual','Catálogo regulatorio'])if(!html.includes(token)&&!js.includes(token))throw new Error(`Missing UI token ${token}`);
-for(const token of ['--gold:','#061526','.travel-hero','.admin-hero','.bottom-nav'])if(!css.includes(token))throw new Error(`Missing design token ${token}`);
-for(const token of ['responsive-desktop.css'])if(!html.includes(token))throw new Error(`Missing responsive stylesheet ${token}`);
-for(const token of ['@media (min-width:1024px)','--desktop-sidebar','#currentTripView','.catalog-list','.sheet-dialog'])if(!responsive.includes(token))throw new Error(`Missing desktop responsive token ${token}`);
-for(const token of ['@media (min-width:768px)','@media (min-width:1440px)'])if(!responsive.includes(token))throw new Error(`Missing responsive breakpoint ${token}`);
-for(const token of ['emailRedirectTo','admin_users','regulatory_rules','trip_documents','compliance_snapshots'])if(!runtime.includes(token))throw new Error(`Missing functional runtime token ${token}`);
-for(const token of ['./supabase-local.js','./runtime.js','__ENTRYSAFE_BOOT_OK__','Blob','sourceURL=entrysafe-runtime-local.js','normalizeRuntimeSource','motor inválido'])if(!bootstrap.includes(token))throw new Error(`Missing same-origin bootstrap token ${token}`);
-for(const token of ['SESSION_KEY','signInWithPassword','resetPasswordForEmail','PostgrestBuilder','storage','functions'])if(!localClient.includes(token))throw new Error(`Missing local Supabase client token ${token}`);
-if(bootstrap.includes('raw.githubusercontent.com')||bootstrap.includes('cdn.jsdelivr.net')||bootstrap.includes('esm.sh'))throw new Error('Bootstrap still depends on external runtime/CDN');
-if(!verifyJs.includes("from './supabase-local.js'"))throw new Error('Verification gate is not using local Supabase client');
-for(const token of ['verification-gate.js','verification-gate.css'])if(!html.includes(token))throw new Error(`Missing verification asset ${token}`);
-for(const token of ['verify-travel-product','Verificar oficialmente antes de guardar','requiresAcknowledgement','verificationApproved','canSave'])if(!verifyJs.includes(token))throw new Error(`Missing verification gate token ${token}`);
-for(const token of ['.verification-result','.verification-requirements','.verification-sources','.verification-blocked-note'])if(!verifyCss.includes(token))throw new Error(`Missing verification design token ${token}`);
-for(const token of ['classifyCatalog','inferAttributes','semantic_heuristic','restrictionMachineVerified','classification_method','classified_catalog_item_id'])if(!verifier.includes(token))throw new Error(`Missing smart classification token ${token}`);
+const migration=fs.readFileSync(new URL('../supabase/migrations/20260830200500_entrysafe_v2_packing.sql',import.meta.url),'utf8');
+const sw=fs.readFileSync(new URL('../web/sw.js',import.meta.url),'utf8');
 
-// Reproduce app.js normalization and parse exactly the source Safari will import.
-let normalizedRuntime=runtime
-  .replace(/^import\s+\{\s*createClient\s*\}\s+from\s+['"][^'"]+['"];?\s*/m,'')
-  .replace(/^import\s+\{\s*SUPABASE_URL\s*,\s*SUPABASE_PUBLISHABLE_KEY\s*\}\s+from\s+['"]\.\/config\.js['"];?\s*/m,'')
-  .replace(").join(''):'<div class=\"empty-state\"><i class=\"ico ico-bag\"",").join(''):`<div class=\"empty-state\"><i class=\"ico ico-bag\"")
-  .replace(").join(''):'<div class=\"empty-state\"><i class=\"ico ico-doc\"",").join(''):`<div class=\"empty-state\"><i class=\"ico ico-doc\"");
-const browserPrefix="const createClient=()=>({});\nconst SUPABASE_URL='https://example.supabase.co';\nconst SUPABASE_PUBLISHABLE_KEY='test';\n";
-try{
-  new Function(`return async function(){\n${browserPrefix}${normalizedRuntime}\n}`);
-}catch(error){
-  throw new Error(`Browser runtime syntax invalid after bootstrap normalization: ${error.message}`);
+for(const id of ['authView','appView','dashboardView','tripsView','packingView','documentsView','catalogView','adminView','profileView','tripDialog','itemDialog','bagDialog','documentDialog','globalAdd']){
+  if(!html.includes(`id="${id}"`))throw new Error(`Missing EntrySafe 2.0 DOM id: ${id}`);
 }
+for(const token of ['Tu viaje.','Todo bajo control.','Mi equipaje','Lo que llevaré','Consultar reglas','Administración'])if(!html.includes(token)&&!app.includes(token))throw new Error(`Missing product token: ${token}`);
+for(const token of ['--canvas:#f4f6f8','--surface:#fff','.boarding-card','.packing-list','.catalog-grid','.mobile-nav','@media(max-width:820px)'])if(!css.includes(token))throw new Error(`Missing premium design token: ${token}`);
+for(const token of ['packed','item_group','regulatory_required','packing_notes'])if(!migration.includes(token))throw new Error(`Missing packing migration field: ${token}`);
+for(const token of ['verify-travel-product','itemNeedsVerification','verifyItem','verificationId','canSave','togglePacked','toggleDeclared','Cierre del viaje','product_verifications'])if(!app.includes(token)&&!verifier.includes(token))throw new Error(`Missing functional token: ${token}`);
+for(const token of ['SESSION_KEY','signInWithPassword','resetPasswordForEmail','PostgrestBuilder','storage','functions'])if(!client.includes(token))throw new Error(`Missing local Supabase client token: ${token}`);
+if(html.includes('runtime.js')||html.includes('verification-gate.js')||html.includes('styles.css'))throw new Error('Legacy frontend assets are still loaded by index.html');
+if(!html.includes('entrysafe-v2.css')||!html.includes('entrysafe-v2.js'))throw new Error('EntrySafe 2.0 assets are not loaded');
 
-console.log('EntrySafe same-origin auth + responsive smart verification + browser runtime syntax checks passed');
+const forbiddenEmoji=/[☕🥩🥭🌿🧀🍗🐟🥖✈👑⚠✅❌]/u;
+for(const [name,text] of [['index.html',html],['entrysafe-v2.js',app],['entrysafe-v2.css',css]])if(forbiddenEmoji.test(text))throw new Error(`Visible emoji forbidden in ${name}; use SVG symbols instead`);
+if(!html.includes('<symbol id="i-coffee"')||!html.includes('<symbol id="i-food"')||!html.includes('<symbol id="i-leaf"'))throw new Error('Professional SVG category icon system is incomplete');
+
+const parseable=app.replace(/^import[^\n]+\n/gm,'');
+try{new Function(parseable);}catch(error){throw new Error(`EntrySafe 2.0 browser syntax invalid: ${error.message}`);}
+if(!sw.includes('entrysafe-v2'))throw new Error('Service worker cache was not upgraded for EntrySafe 2.0');
+console.log('EntrySafe 2.0 premium packing, verification, SVG-only UI and responsive smoke checks passed');
