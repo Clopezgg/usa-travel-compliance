@@ -17,7 +17,7 @@ for(const token of ['responsive-desktop.css'])if(!html.includes(token))throw new
 for(const token of ['@media (min-width:1024px)','--desktop-sidebar','#currentTripView','.catalog-list','.sheet-dialog'])if(!responsive.includes(token))throw new Error(`Missing desktop responsive token ${token}`);
 for(const token of ['@media (min-width:768px)','@media (min-width:1440px)'])if(!responsive.includes(token))throw new Error(`Missing responsive breakpoint ${token}`);
 for(const token of ['emailRedirectTo','admin_users','regulatory_rules','trip_documents','compliance_snapshots'])if(!runtime.includes(token))throw new Error(`Missing functional runtime token ${token}`);
-for(const token of ['./supabase-local.js','./runtime.js','__ENTRYSAFE_BOOT_OK__','Blob','sourceURL=entrysafe-runtime-local.js'])if(!bootstrap.includes(token))throw new Error(`Missing same-origin bootstrap token ${token}`);
+for(const token of ['./supabase-local.js','./runtime.js','__ENTRYSAFE_BOOT_OK__','Blob','sourceURL=entrysafe-runtime-local.js','normalizeRuntimeSource','motor inválido'])if(!bootstrap.includes(token))throw new Error(`Missing same-origin bootstrap token ${token}`);
 for(const token of ['SESSION_KEY','signInWithPassword','resetPasswordForEmail','PostgrestBuilder','storage','functions'])if(!localClient.includes(token))throw new Error(`Missing local Supabase client token ${token}`);
 if(bootstrap.includes('raw.githubusercontent.com')||bootstrap.includes('cdn.jsdelivr.net')||bootstrap.includes('esm.sh'))throw new Error('Bootstrap still depends on external runtime/CDN');
 if(!verifyJs.includes("from './supabase-local.js'"))throw new Error('Verification gate is not using local Supabase client');
@@ -25,4 +25,18 @@ for(const token of ['verification-gate.js','verification-gate.css'])if(!html.inc
 for(const token of ['verify-travel-product','Verificar oficialmente antes de guardar','requiresAcknowledgement','verificationApproved','canSave'])if(!verifyJs.includes(token))throw new Error(`Missing verification gate token ${token}`);
 for(const token of ['.verification-result','.verification-requirements','.verification-sources','.verification-blocked-note'])if(!verifyCss.includes(token))throw new Error(`Missing verification design token ${token}`);
 for(const token of ['classifyCatalog','inferAttributes','semantic_heuristic','restrictionMachineVerified','classification_method','classified_catalog_item_id'])if(!verifier.includes(token))throw new Error(`Missing smart classification token ${token}`);
-console.log('EntrySafe same-origin auth + responsive smart verification smoke checks passed');
+
+// Reproduce app.js normalization and parse exactly the source Safari will import.
+let normalizedRuntime=runtime
+  .replace(/^import\s+\{\s*createClient\s*\}\s+from\s+['"][^'"]+['"];?\s*/m,'')
+  .replace(/^import\s+\{\s*SUPABASE_URL\s*,\s*SUPABASE_PUBLISHABLE_KEY\s*\}\s+from\s+['"]\.\/config\.js['"];?\s*/m,'')
+  .replace(").join(''):'<div class=\"empty-state\"><i class=\"ico ico-bag\"",").join(''):`<div class=\"empty-state\"><i class=\"ico ico-bag\"")
+  .replace(").join(''):'<div class=\"empty-state\"><i class=\"ico ico-doc\"",").join(''):`<div class=\"empty-state\"><i class=\"ico ico-doc\"");
+const browserPrefix="const createClient=()=>({});\nconst SUPABASE_URL='https://example.supabase.co';\nconst SUPABASE_PUBLISHABLE_KEY='test';\n";
+try{
+  new Function(`return async function(){\n${browserPrefix}${normalizedRuntime}\n}`);
+}catch(error){
+  throw new Error(`Browser runtime syntax invalid after bootstrap normalization: ${error.message}`);
+}
+
+console.log('EntrySafe same-origin auth + responsive smart verification + browser runtime syntax checks passed');
