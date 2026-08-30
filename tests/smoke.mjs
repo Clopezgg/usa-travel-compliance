@@ -2,7 +2,9 @@ import fs from 'node:fs';
 const html=fs.readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
 const css=fs.readFileSync(new URL('../web/styles.css',import.meta.url),'utf8');
 const responsive=fs.readFileSync(new URL('../web/responsive-desktop.css',import.meta.url),'utf8');
+const verifyCss=fs.readFileSync(new URL('../web/verification-gate.css',import.meta.url),'utf8');
 const js=fs.readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
+const verifyJs=fs.readFileSync(new URL('../web/verification-gate.js',import.meta.url),'utf8');
 const requiredIds=['authView','appView','dashboardView','tripsView','currentTripView','catalogView','adminView','tripWizard','itemDialog','documentDialog','bottomNav'];
 for(const id of requiredIds)if(!html.includes(`id="${id}"`))throw new Error(`Missing ${id}`);
 for(const token of ['EntrySafe','Centro de control','Viaje actual','Catálogo regulatorio'])if(!html.includes(token)&&!js.includes(token))throw new Error(`Missing UI token ${token}`);
@@ -11,4 +13,7 @@ for(const token of ['responsive-desktop.css'])if(!html.includes(token))throw new
 for(const token of ['@media (min-width:1024px)','--desktop-sidebar','#currentTripView','.catalog-list','.sheet-dialog'])if(!responsive.includes(token))throw new Error(`Missing desktop responsive token ${token}`);
 for(const token of ['@media (min-width:768px)','@media (min-width:1440px)'])if(!responsive.includes(token))throw new Error(`Missing responsive breakpoint ${token}`);
 for(const token of ['emailRedirectTo','admin_users','regulatory_rules','trip_documents','compliance_snapshots'])if(!js.includes(token))throw new Error(`Missing functional token ${token}`);
-console.log('EntrySafe premium mobile/tablet/desktop smoke checks passed');
+for(const token of ['verification-gate.js','verification-gate.css'])if(!html.includes(token))throw new Error(`Missing verification asset ${token}`);
+for(const token of ['verify-travel-product','Verificar oficialmente antes de guardar','requiresAcknowledgement','verificationApproved','canSave'])if(!verifyJs.includes(token))throw new Error(`Missing verification gate token ${token}`);
+for(const token of ['.verification-result','.verification-requirements','.verification-sources','.verification-blocked-note'])if(!verifyCss.includes(token))throw new Error(`Missing verification design token ${token}`);
+console.log('EntrySafe premium mobile/tablet/desktop + official verification smoke checks passed');
