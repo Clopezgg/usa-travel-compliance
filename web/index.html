@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f2747" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="EntrySafe" />
+  <title>EntrySafe USA</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="brand">EntrySafe USA</div>
+      <div class="subtitle">Honduras → Estados Unidos · bitácora y cumplimiento</div>
+    </div>
+    <button id="signOutBtn" class="ghost hidden" type="button">Salir</button>
+  </header>
+
+  <main class="shell">
+    <section id="statusBanner" class="status hidden" aria-live="polite"></section>
+
+    <section id="authView" class="auth-card">
+      <h1>Tu registro personal de viajes</h1>
+      <p>Guarda viajes, equipaje y decisiones regulatorias con fuente oficial.</p>
+      <form id="authForm" class="stack">
+        <label>Correo
+          <input id="emailInput" type="email" autocomplete="email" required />
+        </label>
+        <label>Contraseña
+          <input id="passwordInput" type="password" autocomplete="current-password" minlength="8" required />
+        </label>
+        <div class="actions">
+          <button id="loginBtn" class="primary" type="submit">Entrar</button>
+          <button id="signupBtn" class="secondary" type="button">Crear cuenta</button>
+        </div>
+      </form>
+      <p class="fine">La decisión final de admisibilidad siempre corresponde a CBP/USDA. La app documenta reglas y preparación, no predice admisión migratoria.</p>
+    </section>
+
+    <section id="appView" class="hidden">
+      <nav class="tabs" aria-label="Secciones">
+        <button class="tab active" data-tab="dashboard" type="button">Inicio</button>
+        <button class="tab" data-tab="trips" type="button">Viajes</button>
+        <button class="tab" data-tab="trip" type="button">Viaje actual</button>
+        <button class="tab" data-tab="catalog" type="button">Catálogo</button>
+      </nav>
+
+      <section id="dashboardTab" class="tab-panel">
+        <div class="metrics">
+          <article><span id="metricTrips">0</span><small>viajes</small></article>
+          <article><span id="metricDays">0</span><small>días planificados</small></article>
+          <article><span id="metricItems">0</span><small>artículos registrados</small></article>
+          <article><span id="metricAlerts">0</span><small>alertas activas</small></article>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Próximo viaje</h2><button id="newTripShortcut" class="primary small" type="button">Nuevo viaje</button></div>
+          <div id="nextTripCard" class="empty">Todavía no hay viajes.</div>
+        </div>
+        <div class="panel">
+          <h2>Cobertura regulatoria</h2>
+          <div class="coverage-grid">
+            <div><b>USDA / APHIS</b><span class="ok">Activa</span></div>
+            <div><b>CBP declaración</b><span class="ok">Activa</span></div>
+            <div><b>TSA equipaje</b><span class="warn">Cobertura inicial pendiente</span></div>
+            <div><b>FDA / FWS</b><span class="warn">Derivación cuando aplica</span></div>
+          </div>
+          <p class="fine">El score mostrado se limita a áreas cubiertas por reglas cargadas; nunca se presenta como probabilidad de entrada a EE. UU.</p>
+        </div>
+      </section>
+
+      <section id="tripsTab" class="tab-panel hidden">
+        <div class="panel">
+          <div class="panel-head"><h2>Mis viajes</h2><button id="toggleTripFormBtn" class="primary" type="button">+ Nuevo</button></div>
+          <form id="tripForm" class="form-grid hidden">
+            <label>Salida de Honduras<input id="departureDate" type="date" required /></label>
+            <label>Regreso previsto<input id="returnDate" type="date" /></label>
+            <label>Aerolínea<input id="airline" placeholder="Spirit, American, Avianca…" /></label>
+            <label>Vuelo<input id="flightNumber" placeholder="NK 123" /></label>
+            <label>Puerto de entrada<input id="entryAirport" placeholder="FLL, MIA, IAH…" /></label>
+            <label>Motivo<select id="purpose"><option value="tourism">Turismo</option><option value="family">Visita familiar</option><option value="business">Negocios</option><option value="study">Estudio</option><option value="other">Otro</option></select></label>
+            <label class="full">Notas<textarea id="tripNotes" rows="2"></textarea></label>
+            <div class="actions full"><button class="primary" type="submit">Guardar viaje</button><button id="cancelTripFormBtn" class="ghost" type="button">Cancelar</button></div>
+          </form>
+          <div id="tripList" class="card-list"></div>
+        </div>
+      </section>
+
+      <section id="tripTab" class="tab-panel hidden">
+        <div id="noTripSelected" class="panel empty">Selecciona un viaje para abrir su expediente.</div>
+        <div id="tripWorkspace" class="hidden">
+          <div class="panel">
+            <div class="panel-head"><div><h2 id="tripTitle"></h2><p id="tripMeta" class="muted"></p></div><div class="score-ring"><b id="readinessScore">—</b><span>preparación</span></div></div>
+            <div id="scoreBreakdown" class="score-grid"></div>
+            <div id="tripWarnings" class="warning-list"></div>
+            <div class="actions"><button id="saveSnapshotBtn" class="secondary" type="button">Guardar balance</button><button id="completeTripBtn" class="ghost" type="button">Marcar completado</button><button id="deleteTripBtn" class="danger" type="button">Eliminar viaje</button></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h2>Maletas</h2></div>
+            <form id="bagForm" class="inline-form">
+              <select id="bagType"><option value="personal_item">Artículo personal</option><option value="carry_on">Carry-on</option><option value="checked">Facturada</option></select>
+              <input id="bagLabel" placeholder="Ej. Maleta azul" required />
+              <button class="secondary" type="submit">Agregar</button>
+            </form>
+            <div id="bagList" class="chips"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h2>Lo que llevo</h2><button id="declarationBtn" class="secondary small" type="button">Resumen CBP</button></div>
+            <form id="itemForm" class="form-grid">
+              <label class="full">Artículo
+                <input id="itemSearch" list="catalogDatalist" placeholder="Ej. café, queso, pollo, mango…" required />
+                <datalist id="catalogDatalist"></datalist>
+              </label>
+              <label>Maleta<select id="itemBag"><option value="">Sin asignar</option></select></label>
+              <label>Cantidad<input id="itemQuantity" type="number" min="0.01" step="0.01" value="1" /></label>
+              <label>Preparación<select id="cookedState"><option value="not_applicable">No aplica</option><option value="raw">Crudo</option><option value="partially_cooked">Parcialmente cocido</option><option value="fully_cooked">Completamente cocido</option><option value="processed">Procesado</option></select></label>
+              <label class="check"><input id="homemade" type="checkbox" /> Casero</label>
+              <label class="check"><input id="commercialPackaging" type="checkbox" /> Empaque comercial</label>
+              <label class="check"><input id="sealed" type="checkbox" /> Sellado herméticamente</label>
+              <label class="check"><input id="shelfStable" type="checkbox" /> Estable sin refrigeración</label>
+              <label class="check"><input id="containsMeat" type="checkbox" /> Contiene carne</label>
+              <div class="actions full"><button class="primary" type="submit">Evaluar y agregar</button></div>
+            </form>
+            <div id="itemList" class="item-list"></div>
+          </div>
+
+          <div class="panel">
+            <h2>Documentos privados</h2>
+            <form id="documentForm" class="form-grid">
+              <label>Tipo<select id="documentType"><option value="passport">Pasaporte</option><option value="visa">Visa</option><option value="i94">I-94</option><option value="ticket">Boleto</option><option value="hotel">Hospedaje</option><option value="insurance">Seguro</option><option value="other">Otro</option></select></label>
+              <label>Identificador enmascarado<input id="maskedIdentifier" placeholder="****1234" /></label>
+              <label>Vence<input id="documentExpiry" type="date" /></label>
+              <label class="full">Archivo<input id="documentFile" type="file" /></label>
+              <div class="actions full"><button class="secondary" type="submit">Guardar documento</button></div>
+            </form>
+            <div id="documentList" class="card-list compact"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="catalogTab" class="tab-panel hidden">
+        <div class="panel">
+          <h2>Catálogo regulatorio</h2>
+          <input id="catalogSearch" class="wide" placeholder="Buscar alimento, planta o artículo…" />
+          <div id="catalogList" class="catalog-list"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="declarationDialog">
+    <form method="dialog" class="dialog-card">
+      <div class="panel-head"><h2>Resumen para declarar</h2><button class="ghost" value="cancel">Cerrar</button></div>
+      <p>Food / agricultural products I am carrying from Honduras:</p>
+      <ul id="declarationList"></ul>
+      <p class="fine">Declara todos los productos agrícolas. CBP/USDA toman la decisión final en el puerto de entrada.</p>
+    </form>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
