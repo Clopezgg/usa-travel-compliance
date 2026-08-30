@@ -3,104 +3,129 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f4f6f8">
+  <meta name="theme-color" content="#f3f5f7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="EntrySafe">
-  <meta name="description" content="EntrySafe USA: preparación, equipaje y cumplimiento para viajes de Honduras a Estados Unidos.">
+  <meta name="description" content="Checklist inteligente y cumplimiento oficial para viajes de Honduras a Estados Unidos.">
   <title>EntrySafe USA</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./entrysafe-v2.css">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="stylesheet" href="./entrysafe-v3.css">
 </head>
 <body>
-  <svg class="sr-only" aria-hidden="true" width="0" height="0">
-    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.5-2.6 7.8-7 10-4.4-2.2-7-5.5-7-10V6l7-3Z"/><path d="m8.8 12 2.1 2.1 4.5-5"/></symbol>
-    <symbol id="i-home" viewBox="0 0 24 24"><path d="m4 11 8-7 8 7"/><path d="M6.5 9.5V20h11V9.5M9.5 20v-6h5v6"/></symbol>
-    <symbol id="i-plane" viewBox="0 0 24 24"><path d="m3 12 18-7-7 18-2.8-8.2L3 12Z"/><path d="m11.2 14.8 4.5-4.5"/></symbol>
-    <symbol id="i-suitcase" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M8 11v5M16 11v5"/></symbol>
-    <symbol id="i-carryon" viewBox="0 0 24 24"><rect x="6" y="5" width="12" height="15" rx="2"/><path d="M9 5V3h6v2M9 9v7M15 9v7M8 22h.01M16 22h.01"/></symbol>
-    <symbol id="i-backpack" viewBox="0 0 24 24"><path d="M8 7a4 4 0 0 1 8 0v1c2 .8 3 2.3 3 4.5V20H5v-7.5C5 10.3 6 8.8 8 8V7Z"/><path d="M8 8h8M8 12h8M8 15v5M16 15v5"/></symbol>
-    <symbol id="i-document" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 12h6M9 16h6"/></symbol>
-    <symbol id="i-passport" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="11" r="3"/><path d="M9 11h6M12 8c1 1 1 5 0 6M8 17h8"/></symbol>
-    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5zM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></symbol>
-    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></symbol>
-    <symbol id="i-admin" viewBox="0 0 24 24"><path d="m4 8 4 4 4-7 4 7 4-4-2 10H6L4 8Z"/><path d="M7 21h10"/></symbol>
-    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></symbol>
-    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 1 0-12 0c0 7-3 7-3 8h18c0-1-3-1-3-8M10 21h4"/></symbol>
-    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
-    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></symbol>
-    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
-    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 21 20H3L12 4Z"/><path d="M12 9v5M12 17h.01"/></symbol>
-    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
-    <symbol id="i-external" viewBox="0 0 24 24"><path d="M13 5h6v6M19 5l-8 8"/><path d="M17 13v6H5V7h6"/></symbol>
-    <symbol id="i-shirt" viewBox="0 0 24 24"><path d="m8 4-5 3 2 5 3-1v9h8v-9l3 1 2-5-5-3c-.8 1.2-2.2 2-4 2s-3.2-.8-4-2Z"/></symbol>
-    <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="11" rx="1.5"/><path d="M3 19h18l-2-4H5l-2 4Z"/></symbol>
-    <symbol id="i-bottle" viewBox="0 0 24 24"><path d="M9 3h6v4l2 3v10H7V10l2-3V3Z"/><path d="M9 7h6M8 13h8"/></symbol>
-    <symbol id="i-pill" viewBox="0 0 24 24"><path d="M8 18a4 4 0 0 1-5.7-5.7l8-8A4 4 0 0 1 16 10l-8 8Z"/><path d="m7 8 9 9"/></symbol>
-    <symbol id="i-gift" viewBox="0 0 24 24"><path d="M4 10h16v11H4zM3 6h18v4H3zM12 6v15"/><path d="M12 6H8.5A2.5 2.5 0 1 1 11 3.5L12 6Zm0 0h3.5A2.5 2.5 0 1 0 13 3.5L12 6Z"/></symbol>
-    <symbol id="i-box" viewBox="0 0 24 24"><path d="m4 7 8-4 8 4-8 4-8-4Z"/><path d="M4 7v10l8 4 8-4V7M12 11v10"/></symbol>
-    <symbol id="i-food" viewBox="0 0 24 24"><path d="M7 3v8M4 3v5a3 3 0 0 0 6 0V3M7 11v10M16 3c2 3 3 6 3 9h-5c0-4 .6-7 2-9ZM17 12v9"/></symbol>
-    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4C11 4 5 8 5 14c0 3 2 5 5 5 6 0 10-6 10-15Z"/><path d="M4 21c3-6 7-9 12-12"/></symbol>
-    <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M5 9h12v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V9Z"/><path d="M17 11h2a2 2 0 0 1 0 4h-2M8 5c0-1 1-1.5 1-2M12 5c0-1 1-1.5 1-2"/></symbol>
-    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M5 7h14M9 3h6l1 4H8l1-4ZM7 7l1 14h8l1-14M10 11v6M14 11v6"/></symbol>
-    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 5H5v14h5M14 8l4 4-4 4M8 12h10"/></symbol>
-    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M3 12s3-6 9-6 9 6 9 6-3 6-9 6-9-6-9-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
-  </svg>
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true"><defs>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5v8a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="m3 11 18-7-7 18-2.5-8.5zM11.5 13.5 7 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+  <symbol id="i-suitcase" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M8 20v1M16 20v1M12 7v13"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3 8.6-8 11-5-2.4-8-6-8-11V6z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 3 20h18zM12 9v5M12 17h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 5 5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c.8-4 3.2-6 7.5-6s6.7 2 7.5 6"/></symbol>
+  <symbol id="i-document" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6M9 16h6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="m10 13 4-4M8 17H6a4 4 0 0 1 0-8h3M16 7h2a4 4 0 0 1 0 8h-3"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/></symbol>
+  <symbol id="i-meat" viewBox="0 0 24 24"><path d="M5 17c-3-3-1-8 3-10 3-1 6 0 8 2l2-1 3 3-3 3c0 4-4 7-8 7-2 0-4-1-5-4z"/><circle cx="9" cy="13" r="2"/></symbol>
+  <symbol id="i-dairy" viewBox="0 0 24 24"><path d="M8 4h8l2 5v11H6V9zM8 4v5h8V4"/></symbol>
+  <symbol id="i-fish" viewBox="0 0 24 24"><path d="M3 12c4-5 9-6 14-2l4-3v10l-4-3c-5 4-10 3-14-2z"/><circle cx="14" cy="11" r=".7"/></symbol>
+  <symbol id="i-fruit" viewBox="0 0 24 24"><path d="M12 7c-5-2-8 2-7 7 1 5 4 7 7 5 3 2 6 0 7-5 1-5-2-9-7-7zM12 7c0-3 2-5 5-5M12 6c-2-2-4-2-6-1"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4C10 4 5 8 5 15c0 3 2 5 5 5 7 0 10-7 10-16zM5 20c3-5 7-8 12-11"/></symbol>
+  <symbol id="i-grain" viewBox="0 0 24 24"><path d="M12 22V5M12 8c-3 0-5-2-5-5 3 0 5 2 5 5zM12 12c3 0 5-2 5-5-3 0-5 2-5 5zM12 16c-3 0-5-2-5-5 3 0 5 2 5 5zM12 20c3 0 5-2 5-5-3 0-5 2-5 5z"/></symbol>
+  <symbol id="i-food" viewBox="0 0 24 24"><path d="M5 4v7M8 4v7M5 8h3M6.5 11v10M16 4v17M16 4c4 2 4 8 0 10"/></symbol>
+  <symbol id="i-snack" viewBox="0 0 24 24"><path d="M6 4h12l-1 17H7zM8 8h8M9 12h6"/></symbol>
+  <symbol id="i-spice" viewBox="0 0 24 24"><path d="M8 4h8l1 4H7zM7 8h10l1 13H6zM10 12h4M10 16h4"/></symbol>
+  <symbol id="i-bottle" viewBox="0 0 24 24"><path d="M9 3h6v4l2 3v11H7V10l2-3zM9 7h6"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 4 3 7l2 5 3-2v11h8V10l3 2 2-5-5-3c-1 2-3 3-4 3S9 6 8 4z"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="11" rx="1"/><path d="M3 18h18l-1 2H4z"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path d="M7 17a4 4 0 0 1 0-6l5-5a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0zM9 9l6 6"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><path d="M4 10h16v11H4zM3 7h18v4H3zM12 7v14M8 7c-3 0-3-4 0-4 2 0 4 4 4 4M16 7c3 0 3-4 0-4-2 0-4 4-4 4"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="m4 7 8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10"/></symbol>
+  <symbol id="i-baby" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01M9 15c2 2 4 2 6 0M12 4c0-2 2-3 4-2"/></symbol>
+  <symbol id="i-pet" viewBox="0 0 24 24"><path d="M8 11c-2 0-3-2-2-4s3-1 4 1M16 11c2 0 3-2 2-4s-3-1-4 1M8 14c-3 1-3 5 0 6 2 1 3-1 4-1s2 2 4 1c3-1 3-5 0-6-2-1-3-3-4-3s-2 2-4 3z"/></symbol>
+</defs></svg>
 
-  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 
-  <section id="authView" class="auth-shell">
-    <div class="auth-story">
-      <div class="brand"><span class="brand-mark"><svg class="icon"><use href="#i-shield"></use></svg></span><span class="brand-word">EntrySafe <b>USA</b></span></div>
-      <div class="auth-message">
-        <p class="eyebrow">Honduras → Estados Unidos</p>
-        <h1>Tu viaje.<br><span>Todo bajo control.</span></h1>
-        <p>Organiza cada viaje, decide exactamente qué llevarás, distribúyelo entre tus maletas y verifica los artículos regulados antes de empacarlos.</p>
-        <div class="route-preview"><span class="route-node">SAP</span><span class="route-line"></span><span class="route-node">USA</span></div>
-      </div>
-      <div class="trust-note"><svg class="icon"><use href="#i-shield"></use></svg><span>Preparación personal con fuentes oficiales de USDA, CBP, TSA y FDA.</span></div>
+<section id="authView" class="auth">
+  <div class="auth-story">
+    <div class="brand"><span class="brand-mark"><svg viewBox="0 0 64 74"><path d="M32 3 57 12v21c0 17-10 30-25 38C17 63 7 50 7 33V12L32 3Z"/><path d="M19 35h26M32 20v30"/></svg></span><span><strong>EntrySafe</strong><em>USA</em></span></div>
+    <div class="auth-copy"><p class="eyebrow" style="color:#9fb2c6">Travel compliance, simplified</p><h1>Marca.<br>Guarda.<br>Viaja.</h1><p>Una checklist privada que convierte cantidades, revisa límites, te dice dónde empacar y respalda las decisiones con fuentes oficiales de Estados Unidos.</p></div>
+    <div class="trust-line"><span>USDA / APHIS</span><span>CBP</span><span>TSA</span><span>FAA</span><span>FDA</span><span>USFWS</span></div>
+  </div>
+  <div class="auth-panel">
+    <div class="auth-card">
+      <p class="eyebrow">Acceso privado</p><h2>Bienvenido</h2><p>Entra a tu expediente personal de viajes.</p>
+      <form id="authForm" class="auth-form">
+        <label class="field"><span>Correo electrónico</span><input id="emailInput" type="email" autocomplete="email" required placeholder="tu@correo.com"></label>
+        <label class="field"><span>Contraseña</span><div style="display:flex;gap:8px"><input id="passwordInput" style="width:100%" type="password" autocomplete="current-password" minlength="8" required placeholder="••••••••"><button id="togglePassword" class="icon-btn" type="button" aria-label="Mostrar contraseña"><svg class="icon"><use href="#i-user"></use></svg></button></div></label>
+        <button id="loginBtn" class="btn primary full" type="submit">Iniciar sesión</button>
+        <div class="auth-links"><button id="forgotBtn" class="link-btn" type="button">Recuperar contraseña</button><button id="signupBtn" class="link-btn" type="button">Crear cuenta</button></div>
+      </form>
+      <div class="security-line"><svg class="icon sm"><use href="#i-shield"></use></svg><span>Autenticación Supabase y aislamiento RLS por usuario.</span></div>
     </div>
-    <div class="auth-panel">
-      <div class="auth-card">
-        <p class="eyebrow">Acceso privado</p><h2>Bienvenido.</h2><p>Entra a tu espacio personal de viajes y cumplimiento.</p>
-        <form id="loginForm" class="auth-form">
-          <label class="field"><span>Correo electrónico</span><div class="input-with-icon"><svg class="icon"><use href="#i-mail"></use></svg><input id="loginEmail" type="email" autocomplete="email" placeholder="tu@correo.com" required></div></label>
-          <label class="field"><span>Contraseña</span><div style="position:relative"><input id="loginPassword" type="password" minlength="8" autocomplete="current-password" placeholder="Tu contraseña" required><button id="togglePassword" type="button" class="icon-button" aria-label="Mostrar contraseña" style="position:absolute;right:4px;top:4px;width:38px;height:38px;border:0;background:transparent"><svg class="icon"><use href="#i-eye"></use></svg></button></div></label>
-          <div class="auth-actions"><label><input type="checkbox" checked> Recordarme</label><button id="forgotBtn" type="button">¿Olvidaste tu contraseña?</button></div>
-          <button class="button primary full" type="submit">Iniciar sesión <svg class="icon sm"><use href="#i-arrow"></use></svg></button>
-          <div class="auth-divider">o</div><button id="signupBtn" class="button secondary full" type="button">Crear una cuenta</button>
-        </form>
-        <p class="auth-foot"><svg class="icon sm"><use href="#i-lock"></use></svg><span>Tu información está protegida mediante autenticación, RLS y almacenamiento privado.</span></p>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <section id="appView" class="app-shell hidden">
-    <header class="topbar">
-      <button class="brand" data-nav="dashboard" type="button" style="border:0;background:transparent;padding:0"><span class="brand-mark"><svg class="icon"><use href="#i-shield"></use></svg></span><span class="brand-word">EntrySafe <b>USA</b></span></button>
-      <div class="topbar-actions"><button class="icon-button" data-nav="catalog" type="button" aria-label="Buscar"><svg class="icon"><use href="#i-search"></use></svg></button><button class="icon-button" data-nav="dashboard" type="button" aria-label="Alertas"><svg class="icon"><use href="#i-bell"></use></svg></button><button id="profileButton" class="avatar" type="button" aria-label="Perfil"><span id="avatarInitials">US</span></button></div>
-    </header>
-    <div class="layout">
-      <aside class="sidebar"><div class="nav-label">Viaje</div><nav class="nav-stack"><button class="nav-button active" data-nav="dashboard" type="button"><svg class="icon"><use href="#i-home"></use></svg><span>Inicio</span></button><button class="nav-button" data-nav="trips" type="button"><svg class="icon"><use href="#i-plane"></use></svg><span>Mis viajes</span></button><button class="nav-button" data-nav="packing" type="button"><svg class="icon"><use href="#i-suitcase"></use></svg><span>Mi equipaje</span></button><button class="nav-button" data-nav="documents" type="button"><svg class="icon"><use href="#i-document"></use></svg><span>Documentos</span></button><button class="nav-button" data-nav="catalog" type="button"><svg class="icon"><use href="#i-book"></use></svg><span>Consultar reglas</span></button></nav><div id="adminNav" class="nav-admin hidden"><div class="nav-label">Sistema</div><button class="nav-button" data-nav="admin" type="button"><svg class="icon"><use href="#i-admin"></use></svg><span>Administración</span></button></div></aside>
-      <main class="main"><div class="content"><section id="dashboardView" data-view-panel="dashboard"></section><section id="tripsView" data-view-panel="trips" class="hidden"></section><section id="packingView" data-view-panel="packing" class="hidden"></section><section id="documentsView" data-view-panel="documents" class="hidden"></section><section id="catalogView" data-view-panel="catalog" class="hidden"></section><section id="adminView" data-view-panel="admin" class="hidden"></section><section id="profileView" data-view-panel="profile" class="hidden"></section></div></main>
-    </div>
-    <nav class="mobile-nav" aria-label="Navegación móvil"><button class="active" data-nav="dashboard" type="button"><svg class="icon"><use href="#i-home"></use></svg><span>Inicio</span></button><button data-nav="trips" type="button"><svg class="icon"><use href="#i-plane"></use></svg><span>Viajes</span></button><button id="globalAdd" class="mobile-add" type="button" aria-label="Agregar"><svg class="icon"><use href="#i-plus"></use></svg></button><button data-nav="packing" type="button"><svg class="icon"><use href="#i-suitcase"></use></svg><span>Equipaje</span></button><button data-nav="profile" type="button"><svg class="icon"><use href="#i-user"></use></svg><span id="mobileProfileLabel">Perfil</span></button></nav>
-  </section>
+<section id="appView" class="app hidden">
+  <aside class="rail">
+    <div class="brand"><span class="brand-mark"><svg viewBox="0 0 64 74"><path d="M32 3 57 12v21c0 17-10 30-25 38C17 63 7 50 7 33V12L32 3Z"/><path d="M19 35h26M32 20v30"/></svg></span><span><strong>EntrySafe</strong><em>USA</em></span></div>
+    <nav class="rail-nav">
+      <button data-nav="home" class="active"><svg class="icon"><use href="#i-home"></use></svg>Inicio</button>
+      <button data-nav="checklist"><svg class="icon"><use href="#i-list"></use></svg>Lo que llevaré</button>
+      <button data-nav="bags"><svg class="icon"><use href="#i-suitcase"></use></svg>Mis maletas</button>
+      <button data-nav="documents"><svg class="icon"><use href="#i-document"></use></svg>Documentos</button>
+      <button data-nav="profile"><svg class="icon"><use href="#i-user"></use></svg>Perfil</button>
+      <button data-nav="admin" id="adminNav" class="hidden"><svg class="icon"><use href="#i-layers"></use></svg>Administración</button>
+    </nav>
+    <div class="rail-foot"><button data-nav="checklist"><svg class="icon"><use href="#i-plus"></use></svg>Nueva selección</button></div>
+  </aside>
+  <div class="shell">
+    <header class="topbar"><button id="tripSwitcher" class="trip-switcher" type="button"></button><div class="top-actions"><button class="btn secondary small" data-nav="checklist"><svg class="icon sm"><use href="#i-plus"></use></svg>Agregar artículos</button><button id="avatar" class="avatar" type="button">US</button></div></header>
+    <main class="content">
+      <section id="homeView" data-view="home" class="view"></section>
+      <section id="checklistView" data-view="checklist" class="view hidden">
+        <div class="page-head"><div><p class="eyebrow">Checklist inteligente</p><h1>¿Qué llevarás?</h1><p>Marca las casillas, ajusta cantidades solo cuando haga falta y guarda una sola vez.</p></div><div class="page-actions"><span class="pill info"><strong id="selectedCountTop">0</strong>&nbsp; seleccionados</span></div></div>
+        <div class="checklist-shell">
+          <aside id="categoryPanel" class="category-panel"></aside>
+          <div class="checklist-main">
+            <div class="search-row"><label class="search-shell"><svg class="icon"><use href="#i-search"></use></svg><input id="checklistSearch" type="search" placeholder="Buscar quesillo, pollo, churros, perfume, power bank…" autocomplete="off"></label><button class="filter-chip" type="button">HN → USA</button></div>
+            <div class="catalog-note"><span id="catalogCount">0 opciones</span><span>Catálogo EntrySafe 3.0 · nombres cotidianos</span></div>
+            <div id="checklistList" class="product-list"></div>
+          </div>
+        </div>
+      </section>
+      <section id="bagsView" data-view="bags" class="view hidden"></section>
+      <section id="documentsView" data-view="documents" class="view hidden"></section>
+      <section id="profileView" data-view="profile" class="view hidden"></section>
+      <section id="adminView" data-view="admin" class="view hidden"></section>
+    </main>
+  </div>
+  <nav class="mobile-nav">
+    <button data-nav="home" class="active"><svg class="icon"><use href="#i-home"></use></svg><span>Inicio</span></button>
+    <button data-nav="checklist"><svg class="icon"><use href="#i-list"></use></svg><span>Lista</span></button>
+    <button data-nav="bags"><svg class="icon"><use href="#i-suitcase"></use></svg><span>Maletas</span></button>
+    <button data-nav="documents"><svg class="icon"><use href="#i-document"></use></svg><span>Docs</span></button>
+    <button data-nav="profile"><svg class="icon"><use href="#i-user"></use></svg><span>Perfil</span></button>
+  </nav>
+  <div id="selectionBar" class="selection-bar hidden"><div><strong><span id="selectionCount">0</span> artículos seleccionados</strong><small>EntrySafe revisará cantidades, ubicación y requisitos al guardar.</small></div><button id="saveSelectionBtn" class="btn" type="button">Guardar y verificar</button></div>
+</section>
 
-  <dialog id="tripDialog"><form id="tripForm" class="modal wide"><div class="modal-head"><div><p class="eyebrow">Nuevo expediente</p><h2>Crear viaje</h2><p>Registra los datos esenciales. Después construirás tu lista de equipaje.</p></div><button class="icon-button" type="button" data-close="tripDialog"><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="form-grid"><label class="field"><span>Fecha de salida</span><input id="tripDeparture" type="date" required></label><label class="field"><span>Regreso previsto</span><input id="tripReturn" type="date"></label><label class="field"><span>Aerolínea</span><input id="tripAirline" placeholder="American Airlines"></label><label class="field"><span>Número de vuelo</span><input id="tripFlight" placeholder="AA 1234"></label><label class="field"><span>Puerto de entrada</span><input id="tripAirport" maxlength="8" placeholder="MIA, FLL, IAH…"></label><label class="field"><span>Motivo</span><select id="tripPurpose"><option value="tourism">Turismo</option><option value="family">Visita familiar</option><option value="business">Negocios</option><option value="study">Estudio</option><option value="other">Otro</option></select></label><label class="field full"><span>Notas</span><textarea id="tripNotes" rows="3" placeholder="Hospedaje, contacto, propósito detallado…"></textarea></label></div><div class="modal-footer"><button class="button secondary" type="button" data-close="tripDialog">Cancelar</button><button class="button primary" type="submit">Crear viaje</button></div></form></dialog>
+<dialog id="tripDialog"><form id="tripForm" class="dialog-card"><div class="dialog-head"><div><p class="eyebrow">Nuevo viaje</p><h2>Honduras → Estados Unidos</h2></div><button class="icon-btn" type="button" data-close="tripDialog"><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="form-grid"><label class="field"><span>Salida</span><input id="tripDeparture" type="date" required></label><label class="field"><span>Regreso</span><input id="tripReturn" type="date"></label><label class="field"><span>Aeropuerto de entrada</span><input id="tripAirport" maxlength="8" placeholder="MIA" required></label><label class="field"><span>Estado de entrada</span><input id="tripState" maxlength="2" placeholder="FL"></label><label class="field"><span>Aerolínea</span><input id="tripAirline" placeholder="American Airlines"></label><label class="field"><span>Vuelo</span><input id="tripFlight" placeholder="AA 1234"></label><label class="field full"><span>Motivo</span><select id="tripPurpose"><option value="tourism">Turismo</option><option value="family">Visita familiar</option><option value="business">Negocios</option><option value="study">Estudio</option><option value="other">Otro</option></select></label></div><div class="dialog-actions"><button class="btn ghost" type="button" data-close="tripDialog">Cancelar</button><button class="btn primary" type="submit">Crear viaje</button></div></form></dialog>
 
-  <dialog id="itemDialog"><form id="itemForm" class="modal wide"><div class="modal-head"><div><p class="eyebrow">Lo que llevaré</p><h2>Agregar artículo</h2><p>Registra todo. EntrySafe decidirá cuándo hace falta una verificación oficial.</p></div><button class="icon-button" type="button" data-close="itemDialog"><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="form-grid"><label class="field full"><span>¿Qué vas a llevar?</span><input id="itemName" list="catalogDatalist" placeholder="Ej. café molido, 4 camisetas, power bank…" required><datalist id="catalogDatalist"></datalist></label><label class="field"><span>Categoría</span><select id="itemGroup"><option value="regulated">Alimentos / regulados</option><option value="clothing">Ropa y calzado</option><option value="electronics">Electrónicos</option><option value="personal_care">Cuidado personal</option><option value="medication">Medicamentos</option><option value="documents">Documentos / papeles</option><option value="gifts">Regalos</option><option value="other">Otros</option></select></label><label class="field"><span>Maleta</span><select id="itemBag"><option value="">Sin asignar</option></select></label><label class="field"><span>Cantidad</span><input id="itemQuantity" type="number" min="0.01" step="0.01" value="1"></label><label class="field"><span>Unidad</span><select id="itemUnit"><option value="unidad">Unidad</option><option value="lb">Libras</option><option value="kg">Kilogramos</option><option value="paquete">Paquete</option><option value="botella">Botella</option><option value="bolsa">Bolsa</option></select></label><label class="field full"><span>Nota para empacar</span><input id="itemNotes" placeholder="Opcional: color, tamaño, para quién es…"></label></div><section id="regulatoryFields" style="margin-top:20px"><div class="panel" style="padding:18px;background:#fafbfc"><div class="panel-head"><div><p class="eyebrow">Datos para verificar</p><h2 style="font-size:17px">Preparación y empaque</h2></div><span class="pill info"><svg class="icon sm"><use href="#i-shield"></use></svg> Control oficial</span></div><div class="form-grid"><label class="field full"><span>Preparación</span><select id="itemCooked"><option value="not_applicable">No aplica / no sé</option><option value="raw">Crudo</option><option value="partially_cooked">Parcialmente cocido</option><option value="fully_cooked">Completamente cocido</option><option value="processed">Procesado</option></select></label></div><div class="option-grid" style="margin-top:12px"><label class="option-card"><input id="itemHomemade" type="checkbox"><span><b>Casero</b><small>Preparado en casa o artesanalmente.</small></span></label><label class="option-card"><input id="itemCommercial" type="checkbox"><span><b>Empaque comercial</b><small>Con etiqueta del fabricante.</small></span></label><label class="option-card"><input id="itemSealed" type="checkbox"><span><b>Sellado herméticamente</b><small>Envase cerrado y sin abrir.</small></span></label><label class="option-card"><input id="itemShelfStable" type="checkbox"><span><b>Estable sin refrigeración</b><small>No necesita cadena fría.</small></span></label><label class="option-card"><input id="itemContainsMeat" type="checkbox"><span><b>Contiene carne</b><small>Incluye cerdo, pollo, res u otra carne.</small></span></label></div></div></section><section id="verificationBox" class="verification hidden"></section><div class="modal-footer"><button class="button secondary" type="button" data-close="itemDialog">Cancelar</button><button id="itemSubmit" class="button primary" type="submit">Verificar antes de guardar</button></div></form></dialog>
+<dialog id="tripPicker"><div class="dialog-card"><div class="dialog-head"><div><p class="eyebrow">Tus viajes</p><h2>Seleccionar viaje</h2></div><button class="icon-btn" type="button" data-close="tripPicker"><svg class="icon"><use href="#i-close"></use></svg></button></div><div id="tripList" class="saved-list"></div><div class="dialog-actions"><button id="newTripPickerBtn" class="btn primary" type="button"><svg class="icon sm"><use href="#i-plus"></use></svg>Nuevo viaje</button></div></div></dialog>
 
-  <dialog id="bagDialog"><form id="bagForm" class="modal"><div class="modal-head"><div><p class="eyebrow">Equipaje</p><h2>Nueva maleta</h2></div><button class="icon-button" type="button" data-close="bagDialog"><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="form-grid"><label class="field full"><span>Tipo</span><select id="bagType"><option value="personal_item">Artículo personal / mochila</option><option value="carry_on">Carry-on</option><option value="checked">Maleta facturada</option></select></label><label class="field full"><span>Nombre</span><input id="bagName" placeholder="Ej. Maleta negra" required></label><label class="field full"><span>Peso estimado (kg)</span><input id="bagWeight" type="number" min="0" step="0.1" placeholder="Opcional"></label></div><div class="modal-footer"><button class="button secondary" type="button" data-close="bagDialog">Cancelar</button><button class="button primary" type="submit">Agregar maleta</button></div></form></dialog>
-  <dialog id="moveDialog"><form id="moveForm" class="modal"><div class="modal-head"><div><p class="eyebrow">Organizar</p><h2>Cambiar de maleta</h2></div><button class="icon-button" type="button" data-close="moveDialog"><svg class="icon"><use href="#i-close"></use></svg></button></div><label class="field"><span>Destino</span><select id="moveBagSelect"></select></label><div class="modal-footer"><button class="button secondary" type="button" data-close="moveDialog">Cancelar</button><button class="button primary" type="submit">Guardar ubicación</button></div></form></dialog>
-  <dialog id="documentDialog"><form id="documentForm" class="modal"><div class="modal-head"><div><p class="eyebrow">Bóveda privada</p><h2>Agregar documento</h2></div><button class="icon-button" type="button" data-close="documentDialog"><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="form-grid"><label class="field full"><span>Tipo</span><select id="docType"><option value="passport">Pasaporte</option><option value="visa">Visa</option><option value="ticket">Boleto aéreo</option><option value="hotel">Hospedaje</option><option value="insurance">Seguro de viaje</option><option value="i94">I-94</option><option value="other">Otro</option></select></label><label class="field"><span>Identificador enmascarado</span><input id="docMasked" placeholder="Ej. ****1234"></label><label class="field"><span>Fecha de vencimiento</span><input id="docExpiry" type="date"></label><label class="field full"><span>Archivo privado</span><input id="docFile" type="file"></label></div><div class="modal-footer"><button class="button secondary" type="button" data-close="documentDialog">Cancelar</button><button class="button primary" type="submit">Guardar documento</button></div></form></dialog>
+<dialog id="documentDialog"><form id="documentForm" class="dialog-card"><div class="dialog-head"><div><p class="eyebrow">Expediente privado</p><h2>Agregar documento</h2></div><button class="icon-btn" type="button" data-close="documentDialog"><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="form-grid"><label class="field full"><span>Tipo</span><select id="documentType"><option value="passport">Pasaporte</option><option value="visa">Visa estadounidense</option><option value="i94">I-94</option><option value="ticket">Boleto aéreo</option><option value="hotel">Reserva de hotel</option><option value="insurance">Seguro de viaje</option><option value="prescription">Receta / carta médica</option><option value="other">Otro</option></select></label><label class="field"><span>Identificador enmascarado</span><input id="documentMasked" placeholder="****1234"></label><label class="field"><span>Vencimiento</span><input id="documentExpiry" type="date"></label><label class="field full"><span>Archivo privado</span><input id="documentFile" type="file"></label></div><div class="dialog-actions"><button class="btn ghost" type="button" data-close="documentDialog">Cancelar</button><button class="btn primary" type="submit">Guardar</button></div></form></dialog>
 
-  <script type="module" src="./entrysafe-v2.js"></script>
+<dialog id="resultDialog"><div class="dialog-card wide"><div class="dialog-head"><div><p class="eyebrow">Verificación terminada</p><h2>Tu selección está guardada</h2></div><button class="icon-btn" type="button" data-close="resultDialog"><svg class="icon"><use href="#i-close"></use></svg></button></div><div id="resultSummary"></div><div class="saved-grid"><section><div class="panel-head"><h2>Resultado por artículo</h2></div><div id="resultItems" class="result-items"></div></section><aside><div class="panel-head"><h2>Límites acumulativos</h2></div><div id="aggregateChecks"></div></aside></div><div style="margin-top:22px"><div class="panel-head"><h2>Fuentes oficiales utilizadas</h2><span class="pill">.gov</span></div><div id="resultSources" class="result-sources"></div></div><p class="muted" style="font-size:12px;line-height:1.6;margin-top:20px">EntrySafe prepara tu viaje con reglas y fuentes oficiales; la determinación final de admisibilidad corresponde a CBP/USDA y la decisión final de seguridad de equipaje corresponde a TSA/FAA y la aerolínea.</p></div></dialog>
+
+<script type="module" src="./entrysafe-v3.js"></script>
 </body>
 </html>
