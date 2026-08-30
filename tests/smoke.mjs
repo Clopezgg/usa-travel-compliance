@@ -2,6 +2,7 @@ import fs from 'node:fs';
 const html=fs.readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
 const css=fs.readFileSync(new URL('../web/entrysafe-v3.css',import.meta.url),'utf8');
 const app=fs.readFileSync(new URL('../web/entrysafe-v3.js',import.meta.url),'utf8');
+const tripManager=fs.readFileSync(new URL('../web/trip-management-v3.js',import.meta.url),'utf8');
 const catalog=fs.readFileSync(new URL('../web/catalog-v3.js',import.meta.url),'utf8');
 const client=fs.readFileSync(new URL('../web/supabase-local.js',import.meta.url),'utf8');
 const engine=fs.readFileSync(new URL('../supabase/functions/evaluate-trip-selection-v3/index.ts',import.meta.url),'utf8');
@@ -10,7 +11,7 @@ const presentations=fs.readFileSync(new URL('../supabase/migrations/202608302047
 const ageMigration=fs.readFileSync(new URL('../supabase/migrations/20260830210500_entrysafe_v3_traveler_age.sql',import.meta.url),'utf8');
 const sw=fs.readFileSync(new URL('../web/sw.js',import.meta.url),'utf8');
 
-for(const id of ['authView','appView','homeView','checklistView','bagsView','documentsView','profileView','adminView','categoryPanel','checklistList','selectionBar','saveSelectionBtn','tripDialog','resultDialog'])if(!html.includes(`id="${id}"`))throw new Error(`Missing EntrySafe 3 DOM id: ${id}`);
+for(const id of ['authView','appView','homeView','checklistView','bagsView','documentsView','profileView','adminView','categoryPanel','checklistList','selectionBar','saveSelectionBtn','tripDialog','tripPicker','tripList','resultDialog'])if(!html.includes(`id="${id}"`))throw new Error(`Missing EntrySafe 3 DOM id: ${id}`);
 for(const token of ['Marca.','Guarda.','Viaja.','¿Qué llevarás?','Guardar y verificar','Fuentes oficiales utilizadas'])if(!html.includes(token)&&!app.includes(token))throw new Error(`Missing product copy: ${token}`);
 for(const token of ['--canvas:#f3f5f7','.checklist-shell','.product-row','.selection-bar','.travel-card','.mobile-nav','@media(max-width:820px)'])if(!css.includes(token))throw new Error(`Missing EntrySafe 3 design token: ${token}`);
 for(const token of ['catalog_key_v3','evaluation_v3','source_snapshot_v3','selection_batch_id','entry_state'])if(!migration.includes(token))throw new Error(`Missing V3 database field: ${token}`);
@@ -19,14 +20,16 @@ if(!ageMigration.includes('date_of_birth'))throw new Error('Missing traveler age
 for(const token of ['evaluate-trip-selection-v3','stableKey','saveSelection','presentations','batteryWh','daysSupply','entryState','trip_selection_batches_v3'])if(!app.includes(token))throw new Error(`Missing V3 application capability: ${token}`);
 for(const token of ['VERSION="3.1.0-20260830"','rawItems.length>1000','aggregateChecks','FAA_ALCOHOL','APHIS_MEAT','CBP_DUTY','FDA_MEDS','travelerAge','upsert(rows','stale.length'])if(!engine.includes(token))throw new Error(`Missing V3 engine capability: ${token}`);
 for(const token of ['SESSION_KEY','signInWithPassword','resetPasswordForEmail','storage','functions'])if(!client.includes(token))throw new Error(`Missing local Supabase client capability: ${token}`);
+for(const token of ['renderTripPicker','data-trip-edit','data-trip-delete','saveEditedTrip','deleteTrip','window.confirm',"from('trips').update", "from('trips').delete",'removeStoredDocuments'])if(!tripManager.includes(token))throw new Error(`Missing trip management capability: ${token}`);
 if(!catalog.includes("CATALOG_VERSION='2026.08.30-v3'"))throw new Error('Catalog version missing');
 if(html.includes('entrysafe-v2.js')||html.includes('entrysafe-v2.css')||html.includes('runtime.js')||html.includes('verification-gate.js'))throw new Error('Legacy frontend assets are still loaded');
-if(!html.includes('entrysafe-v3.css')||!html.includes('entrysafe-v3.js'))throw new Error('EntrySafe 3 assets are not loaded');
-if(!sw.includes('entrysafe-v3-checklist')||!sw.includes('catalog-v3.js'))throw new Error('Service worker cache is not EntrySafe 3');
-if(/raw\.githubusercontent|cdn\.jsdelivr|esm\.sh/.test(html+app))throw new Error('Frontend depends on external runtime/CDN');
+if(!html.includes('entrysafe-v3.css')||!html.includes('entrysafe-v3.js')||!html.includes('trip-management-v3.js'))throw new Error('EntrySafe 3 assets are not loaded');
+if(!sw.includes('entrysafe-v3-checklist')||!sw.includes('catalog-v3.js')||!sw.includes('trip-management-v3.js'))throw new Error('Service worker cache is not EntrySafe 3 trip-management ready');
+if(/raw\.githubusercontent|cdn\.jsdelivr|esm\.sh/.test(html+app+tripManager))throw new Error('Frontend depends on external runtime/CDN');
 const forbiddenEmoji=/[☕🥩🥭🌿🧀🍗🐟🥖✈👑⚠✅❌]/u;
-for(const [name,text] of [['index.html',html],['entrysafe-v3.js',app],['entrysafe-v3.css',css]])if(forbiddenEmoji.test(text))throw new Error(`Visible emoji forbidden in ${name}`);
+for(const [name,text] of [['index.html',html],['entrysafe-v3.js',app],['trip-management-v3.js',tripManager],['entrysafe-v3.css',css]])if(forbiddenEmoji.test(text))throw new Error(`Visible emoji forbidden in ${name}`);
 for(const svg of ['i-meat','i-fruit','i-leaf','i-snack','i-bottle','i-laptop','i-pill','i-suitcase'])if(!html.includes(`id="${svg}"`))throw new Error(`Missing SVG symbol ${svg}`);
 const parseable=app.replace(/^import[^\n]+\n/gm,'');
-try{new Function(parseable);}catch(error){throw new Error(`EntrySafe 3 browser syntax invalid: ${error.message}`);}
-console.log('EntrySafe 3 checklist-first, official-source, unit-aware product contract passed');
+const parseableTripManager=tripManager.replace(/^import[^\n]+\n/gm,'');
+try{new Function(parseable);new Function(parseableTripManager);}catch(error){throw new Error(`EntrySafe 3 browser syntax invalid: ${error.message}`);}
+console.log('EntrySafe 3 checklist-first, official-source, unit-aware and trip-management product contract passed');
