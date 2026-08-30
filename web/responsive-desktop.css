@@ -1,1 +1,122 @@
-placeholder
+/* EntrySafe responsive workspace layer — tablet, MacBook and desktop */
+
+/* Tablet: use more horizontal space without forcing desktop navigation. */
+@media (min-width:768px) and (max-width:1023px){
+  .app-main{max-width:980px;margin:0 auto;padding-left:24px;padding-right:24px}
+  .trip-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .trip-list>.empty-state{grid-column:1/-1}
+  .catalog-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .journey-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .admin-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sheet-dialog{width:min(720px,calc(100vw - 40px));margin:auto}
+  .sheet-card{border-radius:28px;padding:22px;max-height:calc(100svh - 64px)}
+  .sheet-handle{display:none}
+}
+
+/* Desktop workspace: MacBook / laptop / desktop. */
+@media (min-width:1024px){
+  :root{--desktop-sidebar:248px;--desktop-gutter:28px;--desktop-header:82px}
+  body{background:radial-gradient(circle at 92% 0,#10365b 0,transparent 30%),radial-gradient(circle at 4% 100%,#0a2a46 0,transparent 28%),linear-gradient(180deg,#061526,#06111e)}
+  .app-screen{min-height:100vh}
+  .app-header{position:fixed;z-index:45;top:0;left:0;right:0;height:var(--desktop-header);padding:0 34px;background:linear-gradient(180deg,rgba(5,18,32,.98),rgba(5,18,32,.9));border-bottom:1px solid rgba(81,118,151,.22);backdrop-filter:blur(24px);box-shadow:0 8px 30px rgba(0,0,0,.12)}
+  .header-brand{min-width:210px}
+  .header-brand strong{font-size:18px;letter-spacing:.08em}.header-brand em{font-size:12px}
+  .header-actions{gap:10px}
+  .round-btn,.avatar-btn{width:43px;height:43px}
+
+  .bottom-nav{position:fixed;z-index:38;left:var(--desktop-gutter);top:calc(var(--desktop-header) + 22px);bottom:24px;transform:none;width:var(--desktop-sidebar);height:auto;display:flex;flex-direction:column;justify-content:flex-start;gap:7px;padding:56px 13px 16px;border-radius:25px;background:linear-gradient(165deg,rgba(10,31,52,.98),rgba(6,22,38,.98));border:1px solid #1e3b55;box-shadow:0 24px 70px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.04);backdrop-filter:blur(20px)}
+  .bottom-nav:before{content:"NAVEGACIÓN";position:absolute;top:22px;left:22px;color:#647f98;font-size:9px;font-weight:850;letter-spacing:.16em}
+  .bottom-nav:after{content:"ENTRYSAFE WORKSPACE";margin-top:auto;padding:16px 10px 4px;border-top:1px solid #18334b;color:#58728a;font-size:9px;font-weight:800;letter-spacing:.12em}
+  .nav-item{width:100%;min-height:52px;display:grid;grid-template-columns:30px 1fr;align-items:center;gap:10px;padding:0 13px;border-radius:14px;color:#7f96aa;text-align:left;font-size:12px;font-weight:720;background:transparent;border:1px solid transparent}
+  .nav-item .ico{width:18px;height:18px;margin:0;color:currentColor}
+  .nav-item span{display:block;margin:0;font-size:12px}
+  .nav-item:hover{background:#0e2a45;color:#c4d8e9;border-color:#1f4564}
+  .nav-item.active{background:linear-gradient(135deg,#123a60,#0e2d4b);border-color:#2a5f86;color:#f5c960;box-shadow:inset 3px 0 0 #d4ad4c}
+
+  .app-main{max-width:none;margin:0 34px 0 calc(var(--desktop-sidebar) + var(--desktop-gutter) * 2);padding:calc(var(--desktop-header) + 30px) 0 52px}
+  .view{width:100%;max-width:1500px;margin:0 auto;animation:desktopViewIn .22s ease}
+  @keyframes desktopViewIn{from{opacity:.55;transform:translateY(5px)}to{opacity:1;transform:none}}
+  .page-head{margin-bottom:20px}.page-head h1{font-size:34px}.page-head .eyebrow{font-size:10px}
+
+  /* Dashboard becomes an executive workspace instead of a stretched mobile feed. */
+  #dashboardView{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(360px,.65fr);gap:18px;align-items:start}
+  #dashboardView>.page-head,#dashboardView>.hero-grid,#dashboardView>.metric-grid{grid-column:1/-1}
+  #dashboardView>.section-card{margin:0;height:100%}
+  #dashboardView>.hero-grid{grid-template-columns:minmax(0,1.55fr) minmax(340px,.65fr);gap:18px}
+  .travel-hero{min-height:300px}.travel-hero__content{padding:28px}.route{font-size:52px}
+  .score-card{min-height:300px;padding:26px}.score-ring{width:150px;height:150px}
+  .metric-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .metric-card{min-height:142px;padding:18px}.metric-card strong{font-size:30px}.metric-card .ico{width:24px;height:24px}
+  .authority-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  /* Trips: dense two-column history for desktop. */
+  #tripsView .filter-row{overflow:visible;flex-wrap:wrap;margin-bottom:18px}
+  #tripsView .trip-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  #tripsView .trip-list>.empty-state{grid-column:1/-1}
+  #tripsView .trip-card{min-height:108px;padding:15px 16px}
+  #tripsView .trip-card__main h3{font-size:18px}
+
+  /* Current trip: genuine dossier layout. */
+  #currentTripView{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px;align-items:start}
+  #currentTripView>.page-head{grid-column:1/-1;margin-bottom:0}
+  #currentTripView>.current-hero{grid-column:span 7;min-height:280px;padding:28px}
+  #currentTripView>.current-hero h1{font-size:48px;margin-top:56px}
+  #currentTripView>.section-card{grid-column:span 5;height:100%;margin:0;padding:24px}
+  #currentTripView>.journey-grid{grid-column:1/-1;grid-template-columns:repeat(4,minmax(0,1fr));margin:0}
+  #currentTripView>#currentSection{grid-column:1/-1}
+  #currentSection>.section-card{padding:22px}
+  #currentSection .item-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  #currentSection .item-list>.empty-state{grid-column:1/-1}
+  #currentSection .trip-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  #currentSection .trip-list>.empty-state{grid-column:1/-1}
+  .journey-action{min-height:94px;padding:16px}.journey-action b{font-size:13px}.journey-action>i{width:30px;height:30px}
+  .bag-summary>div{min-height:88px;padding:15px}.bag-summary b{font-size:25px}
+
+  /* Regulatory catalog uses the available desktop canvas. */
+  #catalogView .catalog-toolbar{max-width:720px;margin-bottom:16px}
+  #catalogView .filter-row{overflow:visible;flex-wrap:wrap}
+  #catalogView .catalog-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .catalog-card{min-height:126px;padding:17px}.catalog-card h3{font-size:15px}.catalog-icon{width:56px;height:56px;font-size:26px}
+
+  /* Admin control center grows into a management dashboard. */
+  #adminView .admin-hero{padding:28px;min-height:150px}
+  #adminView .admin-hero h1{font-size:38px}
+  #adminView .admin-metrics{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  #adminView .admin-metric{min-height:112px;padding:18px}
+  #adminView .admin-metric strong{font-size:32px}
+  #adminView .admin-actions{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+  #adminView .admin-action{min-height:108px;padding:17px}
+  #adminPanel .section-card{padding:22px}
+
+  /* Profile is intentionally narrower on desktop. */
+  #profileView{max-width:900px}
+  .profile-card{padding:36px}.profile-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+
+  /* Desktop dialogs are centered panels, not mobile bottom sheets. */
+  .sheet-dialog,.compact-dialog{width:min(760px,calc(100vw - 72px));margin:auto;border:0}
+  .compact-dialog{width:min(590px,calc(100vw - 72px))}
+  .sheet-card{border-radius:28px;padding:26px;max-height:calc(100vh - 80px);box-shadow:0 30px 90px rgba(0,0,0,.55)}
+  .sheet-handle{display:none}.sheet-header{margin-bottom:22px}.sheet-header h2{font-size:28px}
+  .sheet-footer{justify-content:flex-end}.sheet-footer .grow{flex:0 1 240px}
+  .center-dialog{width:min(680px,calc(100vw - 72px))}
+  .modal-card{padding:26px}
+
+  .toast{top:96px}
+}
+
+/* Large desktop: use the extra width instead of simply enlarging cards. */
+@media (min-width:1440px){
+  :root{--desktop-sidebar:260px;--desktop-gutter:32px}
+  .app-main{margin-right:48px}
+  #dashboardView{grid-template-columns:minmax(0,1.45fr) minmax(400px,.55fr)}
+  #catalogView .catalog-list{grid-template-columns:repeat(4,minmax(0,1fr))}
+  #tripsView .trip-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #currentTripView>.current-hero{grid-column:span 8}
+  #currentTripView>.section-card{grid-column:span 4}
+}
+
+/* Very wide monitors: cap content density for readability. */
+@media (min-width:1800px){
+  .view{max-width:1580px}
+  #catalogView .catalog-list{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
