@@ -14,8 +14,10 @@ jobs:
         with:
           node-version: '22'
       - name: JavaScript syntax
-        run: node --check web/entrysafe-v4.js && node --check web/entrysafe-core-v4.js && node --check web/catalog-v4.js && node --check web/catalog-v3.js && node --check web/trip-management-v3.js && node --check web/supabase-local.js && node --check web/sw.js && node --check tests/entrysafe-v4.mjs && node --check tests/catalog-v3.mjs
+        run: node --check web/entrysafe-v4.js && node --check web/entrysafe-core-v4.js && node --check web/catalog-v4.js && node --check web/catalog-v3.js && node --check web/trip-management-v4.js && node --check web/trip-management-v3.js && node --check web/supabase-local.js && node --check web/sw.js && node --check tests/entrysafe-v4.mjs && node --check tests/trip-lifecycle-v4.mjs && node --check tests/catalog-v3.mjs
       - name: Definitive product certification
         run: node tests/entrysafe-v4.mjs
+      - name: Trip lifecycle certification
+        run: node tests/trip-lifecycle-v4.mjs
       - name: Base catalog certification
         run: node tests/catalog-v3.mjs
